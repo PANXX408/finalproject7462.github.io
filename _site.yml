@@ -1,17 +1,33 @@
-name: "Yay internet!"
+name: "Netflix Movies and TV Shows"
 header-includes: 
   \usepackage{graphicx}
   \usepackage{float}
 output_dir: "."
 navbar:
   title: "Home"
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - icon: fa-github fa-lg
+      href: https://github.com/PANXX408/finalproject7462.github.io
+    - icon: fa-envelope fa-lg
+      menu:
+        - text: "Mingming Pan"
+          href: mailto:<panxx408@umn.edu>
+        - text: "Xiao Ma"
+          href: mailto:<ma000332@umn.edu>
   right:
     - text: "About"
       href: about.html
-    - icon: fa-envelope fa-lg
-      href: mailto:<nevil066@umn.edu>
-    - icon: fa-github fa-lg
-      href: http://github.com/nevilleq/
+    - text: "Data"
+      href: datapage.html
+    - text: "Results"
+      menu:
+          - text: "EDA"
+            href: EDA.html
+          - text: "Leaflet"
+            href: leaflet.html
 output:  
    html_document:
     theme: flatly
