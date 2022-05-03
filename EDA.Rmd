@@ -2,7 +2,10 @@
 title: "EDA"
 author: "Mingming Pan"
 date: "5/3/2022"
-output: html_document
+output:  html_document:
+    df_print: paged
+    toc: yes
+    toc_depth: 2
 ---
 
 ```{r, include=FALSE, message=FALSE}
@@ -18,7 +21,7 @@ library(ggplot2)
 
 #Understanding what content is available in different countries. Are there any differences between movies and TV shows?
 #Does Netflix have more focus on TV Shows than movies in recent years in different countries and regions? Are there any duration changing trends?
-```{r}
+```{r, include=FALSE}
 #read data
 netflix <- read_csv("./data/netflix_titles.csv", na = "")
 

@@ -12,11 +12,7 @@ navbar:
     - icon: fa-github fa-lg
       href: https://github.com/PANXX408/finalproject7462.github.io
     - icon: fa-envelope fa-lg
-      menu:
-        - text: "Mingming Pan"
-          href: mailto:<panxx408@umn.edu>
-        - text: "Xiao Ma"
-          href: mailto:<ma000332@umn.edu>
+      href: mailto:<panxx408@umn.edu>
   right:
     - text: "About"
       href: about.html

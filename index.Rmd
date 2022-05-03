@@ -14,7 +14,12 @@ title: "Your Name"
   
   
 <font size = "4">
-*Paragraph 2*  
+*The type of movies and TV shows could be different in different countries. Our question of interests are: 1.Understanding what content is available in different countries. Are there any differences between movies and TV shows? 2. Does Netflix have more focus on TV Shows than movies in recent years in different countries and regions? Are there any duration changing trends?*  
+</font>
+
+
+<font size = "4">
+*The basic conclusions*  
 </font>
 
 >"A quote" - Somebody
