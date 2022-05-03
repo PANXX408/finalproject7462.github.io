@@ -1,0 +1,66 @@
+---
+title: "EDA"
+author: "Mingming Pan"
+date: "5/3/2022"
+output: html_document
+---
+
+```{r, include=FALSE, message=FALSE}
+library(tidyverse)
+library(DataExplorer)
+library(lubridate)
+library(forcats)
+library(stringr)
+```
+
+
+#Understanding what content is available in different countries. Are there any differences between movies and TV shows?
+#Does Netflix have more focus on TV Shows than movies in recent years in different countries and regions? Are there any duration changing trends?
+```{r}
+#read data
+netflix <- read_csv("./data/netflix_titles.csv", na = "")
+
+#basic data exploration
+plot_missing(netflix)
+plot_bar(netflix)
+```
+
+```{r}
+#glimpse the dataset
+head(netflix, n = 20)
+``````{r}
+#Data Cleaning
+#Get day, month, year and dayofweek
+#Place mutiple conetents in one cell into a list prepared for further wrangling
+netflix_clean <- netflix %>%
+  mutate(
+    date_added   = mdy(date_added),
+    year_added   = year(date_added),
+    month        = month(date_added, label = TRUE, abbr = FALSE),
+    day_num      = day(date_added),
+    day_of_week  = wday(date_added, #day of the week
+                        label = TRUE, #return name i.e "Friday"
+                        abbr  = FALSE, #Return full name
+                        week_start = getOption("lubridate.week.start", 1)) #1 = Monday)
+    ) %>%
+  mutate(country   = map(.x = country, ~str_split(.x, ", ") %>% unlist)) %>%
+  mutate(listed_in = map(.x = listed_in, ~str_split(.x, ", ") %>% unlist)) %>%
+  mutate(cast      = map(.x = cast, ~str_split(.x, ", ") %>% unlist)) %>%
+  mutate(director  = map(.x = director, ~str_split(.x, ", ") %>% unlist)) %>%
+  mutate(rating    = ifelse(str_detect(rating, "min"), NA, rating))
+```
+
+#https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/export/
+
+```{r}
+plot_bar(clean)
+```
+
+```{r}
+#Subset the dataset by movie and TV show
+netflix_movie <- netflix_clean %>%
+  filter(type == "Movie")
+
+netflix_show <- netflix_clean %>%
+  filter(type == "TV Show")
+```
