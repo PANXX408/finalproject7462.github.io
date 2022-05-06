@@ -61,6 +61,42 @@ netflix_clean <- netflix %>%
 ```{r}
 plot_bar(netflix_clean)
 ```
+#n_movie and n_show
+#Why arrange is not working?
+```{r}
+#top 20 countries
+top_20 <- netflix_clean %>%
+  unnest(country) %>% #unnest listed country
+  filter(!is.na(country)) %>%
+  pull(country) %>% 
+  fct_count() %>% 
+  arrange(desc(n)) %>% 
+  slice(1:20) %>% 
+  pull(f)
+
+#Number of Movies and TV show in Top 20 Countries
+netflix_clean %>%
+  unnest(country) %>%
+  filter(!is.na(country),
+         country %in% top_20) %>%
+  select(country, type) %>%
+  group_by(type, country) %>%
+  summarise(
+    N = n()
+  ) %>%
+  arrange(country, desc(N)) %>%
+  gt() %>%
+  tab_header("Number of Movies and TV show in Top 20 Countries")
+```
+
+ group_by(branch, location) %>%
+  summarise(
+    N = n()
+  ) %>%
+  arrange(branch, desc(N)) %>%
+  group_by(branch) %>%
+  slice(1:5)
+
 
 ```{r}
 #Subset the dataset by movie and TV show
@@ -170,9 +206,50 @@ netflix_movie %>%
 #Taiwan, South Korean and Australia <-> Mexico, China, Germany
 
 
+#More focus on movies or TV shows in different countries?
+#Why 
 ```{r}
+#Top 6 countries
+top_6 <- netflix_clean %>%
+  unnest(country) %>% #unnest listed country
+  filter(!is.na(country)) %>%
+  pull(country) %>% 
+  fct_count() %>% 
+  arrange(desc(n)) %>% 
+  slice(1:6) %>% 
+  pull(f)
 
+#Trend change in Top 6 countries
+netflix_clean %>%
+  select(country, year_added, type) %>%
+  unnest(country) %>% 
+  filter(
+    !is.na(country), 
+    !is.na(year_added),
+    country %in% top_6
+    ) %>%
+  group_by(country, year_added, type) %>%
+  summarise(
+    N = n()
+  ) %>%
+  ungroup() %>%
+  ggplot(aes(x = year_added, y = N, colour = type, fill = type)) +
+  stat_smooth(alpha   = 0.2, 
+              size    = 1.2,
+              formula = "y ~ x",
+              se      = FALSE) +
+  geom_point(alpha    = 0.85,
+             position = "jitter",
+             size     = 1.5, 
+             shape    = 16) +
+  facet_wrap(~ country) +
+  labs(
+    x = "Year",
+    y = "Number of Movies/ TV Shows",
+    title = "Trend of Movies and TV Shows Added in Top 6 Countries"
+  )
 ```
+#Conclusion: From the plots, we can conclude that. 
 
 ```{r}
 

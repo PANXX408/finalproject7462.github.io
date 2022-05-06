@@ -13,4 +13,5 @@ About this Dataset: Netflix is one of the most popular media and video streaming
 
 [Data Kaggle Page](https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download)
 
-[Contact Us](mailto:admin@cloudhadoop.com)
+[Contact Us](mailto:panxx408@umn.edu)
+[Contact Us](mailto:ma000332@umn.edu)
