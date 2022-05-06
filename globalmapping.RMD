@@ -140,7 +140,7 @@ continent.gg <- netflix1 %>%
   ggplot(aes(x=release_year,y=n,fill=type, text = text_label)) +
            geom_bar(stat = "identity",position = "dodge") +
   facet_wrap(~continent, scales = "free")+
-  labs(title = "Numbers of TV Shows and movies in different continents",
+  labs(title = "Numbers of TV Shows and Movies in different continents",
        subtitle = "In recent ten years",
     x     = "Release year",
     y     = "Number")+theme_light()
