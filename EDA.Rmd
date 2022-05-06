@@ -1,0 +1,261 @@
+---
+title: "EDA"
+author: "Mingming Pan"
+date: "5/3/2022"
+output:  html_document
+---
+
+```{r, include=FALSE, message=FALSE}
+library(tidyverse)
+library(DataExplorer)
+library(lubridate)
+library(forcats)
+library(stringr)
+library(gt)
+library(ggplot2)
+library(plotly)
+```
+
+
+#Understanding what content is available in different countries. Are there any differences between movies and TV shows?
+#Does Netflix have more focus on TV Shows than movies in recent years in different countries and regions? 
+```{r, include=FALSE}
+#read data
+netflix <- read_csv("./data/netflix_titles.csv", na = "")
+
+#basic data exploration
+plot_missing(netflix)
+plot_bar(netflix)
+```
+
+```{r, include=FALSE}
+#glimpse the dataset
+head(netflix, n = 20)
+```
+
+```{r, include=FALSE}
+#Data Cleaning
+#Get day, month, year and dayofweek
+#Place mutiple conetents in one cell into a list prepared for further wrangling
+netflix_clean <- netflix %>%
+  mutate(
+    date_added   = mdy(date_added),
+    year_added   = year(date_added),
+    month        = month(date_added, label = TRUE, abbr = FALSE),
+    day_num      = day(date_added),
+    day_of_week  = wday(date_added, #day of the week
+                        label = TRUE, #return name i.e "Friday"
+                        abbr  = FALSE, #Return full name
+                        week_start = getOption("lubridate.week.start", 1)) #1 = Monday)
+    ) %>%
+  mutate(country   = map(.x = country, ~str_split(.x, ", ") %>% unlist)) %>%
+  mutate(listed_in = map(.x = listed_in, ~str_split(.x, ", ") %>% unlist)) %>%
+  mutate(cast      = map(.x = cast, ~str_split(.x, ", ") %>% unlist)) %>%
+  mutate(director  = map(.x = director, ~str_split(.x, ", ") %>% unlist)) %>%
+  mutate(rating    = ifelse(str_detect(rating, "min"), NA, rating))
+```
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+plot_bar(netflix_clean)
+```
+
+
+#n_movie and n_show
+#Why arrange is not working?
+```{r, message=FALSE, echo=FALSE}
+#top 20 countries
+top_20 <- netflix_clean %>%
+  unnest(country) %>% #unnest listed country
+  filter(!is.na(country)) %>%
+  pull(country) %>% 
+  fct_count() %>% 
+  arrange(desc(n)) %>% 
+  slice(1:20) %>% 
+  pull(f)
+
+#Number of Movies and TV show in Top 20 Countries
+netflix_clean %>%
+  unnest(country) %>%
+  filter(!is.na(country),
+         country %in% top_20) %>%
+  select(country, type) %>%
+  group_by(country, type) %>%
+  summarise(
+    N = n()
+  ) %>%
+  ungroup() %>%
+  mutate(
+    country = str_to_title(country) %>%
+      as.factor() %>%
+      fct_reorder(N, .desc = FALSE)
+    ) %>%
+  ggplot(aes(x = N, y = country, fill = N)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ type, scales = "free") +
+  labs(
+    y = "Country",
+    x = "Number of Movies/TV Shows",
+    title = "Number of Movies/TV Shows in Top 20 Countries"
+    ) +
+  theme(legend.position="bottom") +
+  scale_fill_viridis_c("Number of Movies/TV Shows", direction = -1, option = "plasma") +
+  theme_minimal()
+```
+
+
+```{r}
+#Subset the dataset by movie and TV show
+netflix_movie <- netflix_clean %>%
+  filter(type == "Movie")
+
+netflix_show <- netflix_clean %>%
+  filter(type == "TV Show")
+```
+
+#Top 5 ratings in top 10 countries
+#Movies
+```{r}
+#Top 10 countries
+top_10_movie <- netflix_movie %>%
+  unnest(country) %>% #unnest listed country
+  filter(!is.na(country)) %>%
+  pull(country) %>% 
+  fct_count() %>% 
+  arrange(desc(n)) %>% 
+  slice(1:10) %>% 
+  pull(f)
+
+netflix_movie %>%
+  select(show_id, country, rating) %>%
+  unnest(country) %>%
+  filter(country %in% top_10_movie) %>%
+  group_by(country, rating) %>%
+  summarise(
+    n_movie = n()
+  ) %>%
+  arrange(desc(n_movie)) %>%
+  group_by(country) %>%
+  slice(1:5) %>%
+  ungroup() %>%
+  mutate(
+    rating = str_to_title(rating) %>%
+      as_factor() %>%
+      fct_reorder2(country, n_movie, .desc = FALSE)
+    ) %>%
+  ggplot(aes(x = n_movie, y = rating, fill = n_movie)) +
+  geom_bar(stat = "identity", width = 1, colour = "black") +
+  labs(
+    y = "Rating of Movies",
+    x = "Number of Movies",
+    title = "Top 5 Movie Ratings in the Top 10 Countries"
+    ) +
+  theme(legend.position = "right",
+        axis.text.y = element_text(color = "black",
+                                   size = 10,
+                                   hjust = 1)) +
+  scale_fill_viridis_c("# Movies", direction = -1) +
+  facet_wrap(~ country, scales = "free", ncol = 2)
+```
+#listed in and country both are stored in list how to unnest both?
+```{r}
+#Top 10 countries
+top_10_show <- netflix_show %>%
+  unnest(country) %>% #unnest listed country
+  filter(!is.na(country)) %>%
+  pull(country) %>% 
+  fct_count() %>% 
+  arrange(desc(n)) %>% 
+  slice(1:10) %>% 
+  pull(f)
+
+netflix_movie %>%
+  select(show_id, country, rating) %>%
+  unnest(country) %>%
+  filter(country %in% top_10_show) %>%
+  group_by(country, rating) %>%
+  summarise(
+    n_movie = n()
+  ) %>%
+  arrange(desc(n_movie)) %>%
+  group_by(country) %>%
+  slice(1:5) %>%
+  ungroup() %>%
+  mutate(
+    country = str_to_title(country) %>%
+      as_factor() %>%
+      fct_reorder(n_movie, .desc = TRUE)
+    ) %>%
+  ggplot(aes(x = n_movie, y = rating, fill = n_movie)) +
+  geom_bar(stat = "identity", width = 1, colour = "black") +
+  labs(
+    y = "Rating of TV Shows",
+    x = "Number of TV Shows",
+    title = "Top 5 TV Shows Ratings in the Top 10 Countries"
+    ) +
+  theme(legend.position = "right",
+        axis.text.y = element_text(color = "black",
+                                   size = 10,
+                                   hjust = 1)) +
+  scale_fill_viridis_c("# TV Shows", direction = -1) +
+  facet_wrap(~ country, scales = "free", ncol = 2)
+```
+#Taiwan, South Korean and Australia <-> Mexico, China, Germany
+
+
+#More focus on movies or TV shows in different countries?
+#Why 
+```{r, warning=FALSE, echo=FALSE}
+#Top 6 countries
+top_10 <- netflix_clean %>%
+  unnest(country) %>% #unnest listed country
+  filter(!is.na(country)) %>%
+  pull(country) %>% 
+  fct_count() %>% 
+  arrange(desc(n)) %>% 
+  slice(1:10) %>% 
+  pull(f)
+
+#Trend change in Top 6 countries
+netflix_clean %>%
+  select(country, year_added, type) %>%
+  unnest(country) %>% 
+  filter(
+    !is.na(country), 
+    !is.na(year_added),
+    country %in% top_10
+    ) %>%
+  group_by(country, year_added, type) %>%
+  summarise(
+    N = n()
+  ) %>%
+  ungroup() %>%
+  ggplot(aes(x = year_added, y = N, colour = type, fill = type)) +
+  stat_smooth(alpha   = 0.2, 
+              size    = 1.2,
+              span    = 0.5,
+              formula = "y ~ x",
+              se      = FALSE) +
+  geom_point(alpha    = 0.85,
+             position = "jitter",
+             size     = 1.5, 
+             shape    = 16) +
+  facet_wrap(~ country, scale = "free") +
+  labs(
+    x = "Year",
+    y = "Number of Movies/ TV Shows",
+    title = "Trend of Movies and TV Shows Added in Top 6 Countries"
+  ) +
+  theme_classic()
+```
+#Conclusion: From the plots, we can conclude that. 
+
+
+
+
+
+
+
+
+
+

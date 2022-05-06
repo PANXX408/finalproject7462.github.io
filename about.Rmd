@@ -4,6 +4,14 @@ title: "About"
 
 <font size="4"> 
 <center>
-The navigation bar on this website provides access to my resume, recent work, publications, awards, Github, LinkedIn, and email for contact. Feel free to email me with any inquiries or opportunities you would like to share.  
+*This is an academic project of PubH7462 from University of Minnesota, School of Public Health. Group members are Mingming Pan and Xiao Ma.*  
 </center>
 </font>
+
+<font size="4"> 
+<center>
+*If you have any question about the website, please contact us by the contact button at the bottom of Home page. *  
+</center>
+</font>
+
+
