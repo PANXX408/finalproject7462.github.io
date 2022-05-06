@@ -1,4 +1,4 @@
-name: "Netflix Movies and TV Shows"
+name: "Netflix Movies and TV Shows from 2008 - 2021"
 header-includes: 
   \usepackage{graphicx}
   \usepackage{float}
@@ -17,8 +17,8 @@ navbar:
       menu:
           - text: "EDA"
             href: EDA.html
-          - text: "Leaflet"
-            href: leaflet.html
+          - text: "Global Mapping"
+            href: globalmapping.html
 
 output:  
    html_document:

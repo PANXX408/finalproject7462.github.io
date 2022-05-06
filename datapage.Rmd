@@ -13,5 +13,9 @@ About this Dataset: Netflix is one of the most popular media and video streaming
 
 [Data Kaggle Page](https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download)
 
-[Contact Us](mailto:panxx408@umn.edu)
-[Contact Us](mailto:ma000332@umn.edu)
+
+
+(1) describes, in detail, each data source in the project, 
+(2) how the data was acquired and/or merged together if applicable, 
+(3) provides links to each data source with references/documentation if necessary
+(4) links to or provides the Rscript necessary to acquire the data from an API (and date/time it was acquired)

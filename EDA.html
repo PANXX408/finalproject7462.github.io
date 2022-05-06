@@ -249,21 +249,8 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
-    <span class="fa fa-home"></span>
-     
-    Home
-  </a>
-</li>
-<li>
   <a href="https://github.com/PANXX408/finalproject7462.github.io">
     <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="mailto:&lt;panxx408@umn.edu&gt;">
-    <span class="fa fa-envelope fa-lg"></span>
      
   </a>
 </li>
@@ -286,7 +273,7 @@ $(document).ready(function () {
       <a href="EDA.html">EDA</a>
     </li>
     <li>
-      <a href="leaflet.html">Leaflet</a>
+      <a href="globalmapping.html">Global Mapping</a>
     </li>
   </ul>
 </li>
@@ -306,74 +293,18 @@ $(document).ready(function () {
 </div>
 
 
-<p>#Understanding what content is available in different countries. Are there any differences between movies and TV shows? #Does Netflix have more focus on TV Shows than movies in recent years in different countries and regions? Are there any duration changing trends?</p>
-<pre class="r"><code>#glimpse the dataset
-head(netflix, n = 20)</code></pre>
-<pre><code>## # A tibble: 20 x 12
-##    show_id type    title   director cast  country date_added release_year rating
-##    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt; 
-##  1 s1      Movie   Dick J~ Kirsten~ &lt;NA&gt;  United~ September~         2020 PG-13 
-##  2 s2      TV Show Blood ~ &lt;NA&gt;     Ama ~ South ~ September~         2021 TV-MA 
-##  3 s3      TV Show Gangla~ Julien ~ Sami~ &lt;NA&gt;    September~         2021 TV-MA 
-##  4 s4      TV Show Jailbi~ &lt;NA&gt;     &lt;NA&gt;  &lt;NA&gt;    September~         2021 TV-MA 
-##  5 s5      TV Show Kota F~ &lt;NA&gt;     Mayu~ India   September~         2021 TV-MA 
-##  6 s6      TV Show Midnig~ Mike Fl~ Kate~ &lt;NA&gt;    September~         2021 TV-MA 
-##  7 s7      Movie   My Lit~ Robert ~ Vane~ &lt;NA&gt;    September~         2021 PG    
-##  8 s8      Movie   Sankofa Haile G~ Kofi~ United~ September~         1993 TV-MA 
-##  9 s9      TV Show The Gr~ Andy De~ Mel ~ United~ September~         2021 TV-14 
-## 10 s10     Movie   The St~ Theodor~ Meli~ United~ September~         2021 PG-13 
-## 11 s11     TV Show Vendet~ &lt;NA&gt;     &lt;NA&gt;  &lt;NA&gt;    September~         2021 TV-MA 
-## 12 s12     TV Show Bangko~ Kongkia~ Suko~ &lt;NA&gt;    September~         2021 TV-MA 
-## 13 s13     Movie   Je Sui~ Christi~ Luna~ German~ September~         2021 TV-MA 
-## 14 s14     Movie   Confes~ Bruno G~ Klar~ &lt;NA&gt;    September~         2021 TV-PG 
-## 15 s15     TV Show Crime ~ &lt;NA&gt;     &lt;NA&gt;  &lt;NA&gt;    September~         2021 TV-MA 
-## 16 s16     TV Show Dear W~ &lt;NA&gt;     Loga~ United~ September~         2021 TV-MA 
-## 17 s17     Movie   Europe~ Pedro d~ &lt;NA&gt;  &lt;NA&gt;    September~         2020 TV-MA 
-## 18 s18     TV Show Falsa ~ &lt;NA&gt;     Luis~ Mexico  September~         2020 TV-MA 
-## 19 s19     Movie   Intrus~ Adam Sa~ Frei~ &lt;NA&gt;    September~         2021 TV-14 
-## 20 s20     TV Show Jaguar  &lt;NA&gt;     Blan~ &lt;NA&gt;    September~         2021 TV-MA 
-## # ... with 3 more variables: duration &lt;chr&gt;, listed_in &lt;chr&gt;, description &lt;chr&gt;</code></pre>
-<pre class="r"><code>#Data Cleaning
-#Get day, month, year and dayofweek
-#Place mutiple conetents in one cell into a list prepared for further wrangling
-netflix_clean &lt;- netflix %&gt;%
-  mutate(
-    date_added   = mdy(date_added),
-    year_added   = year(date_added),
-    month        = month(date_added, label = TRUE, abbr = FALSE),
-    day_num      = day(date_added),
-    day_of_week  = wday(date_added, #day of the week
-                        label = TRUE, #return name i.e &quot;Friday&quot;
-                        abbr  = FALSE, #Return full name
-                        week_start = getOption(&quot;lubridate.week.start&quot;, 1)) #1 = Monday)
-    ) %&gt;%
-  mutate(country   = map(.x = country, ~str_split(.x, &quot;, &quot;) %&gt;% unlist)) %&gt;%
-  mutate(listed_in = map(.x = listed_in, ~str_split(.x, &quot;, &quot;) %&gt;% unlist)) %&gt;%
-  mutate(cast      = map(.x = cast, ~str_split(.x, &quot;, &quot;) %&gt;% unlist)) %&gt;%
-  mutate(director  = map(.x = director, ~str_split(.x, &quot;, &quot;) %&gt;% unlist)) %&gt;%
-  mutate(rating    = ifelse(str_detect(rating, &quot;min&quot;), NA, rating))</code></pre>
-<pre class="r"><code>plot_bar(netflix_clean)</code></pre>
-<pre><code>## 9 columns ignored with more than 50 categories.
-## show_id: 8807 categories
-## title: 8807 categories
-## director: 4529 categories
-## cast: 7693 categories
-## country: 749 categories
-## date_added: 1715 categories
-## duration: 221 categories
-## listed_in: 514 categories
-## description: 8775 categories</code></pre>
+<p>#Understanding what content is available in different countries. Are there any differences between movies and TV shows? #Does Netflix have more focus on TV Shows than movies in recent years in different countries and regions?</p>
 <p><img src="EDA_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>#n_movie and n_show #Why arrange is not working? <img src="EDA_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre class="r"><code>#Subset the dataset by movie and TV show
 netflix_movie &lt;- netflix_clean %&gt;%
   filter(type == &quot;Movie&quot;)
 
 netflix_show &lt;- netflix_clean %&gt;%
   filter(type == &quot;TV Show&quot;)</code></pre>
-<p>#Understanding what content is available in different countries. Are there any differences between movies and TV shows? #Does Netflix have more focus on TV Shows than movies in recent years in different countries and regions? Are there any duration changing trends?</p>
 <p>#Top 5 ratings in top 10 countries #Movies</p>
 <pre class="r"><code>#Top 10 countries
-top_10 &lt;- netflix_movie %&gt;%
+top_10_movie &lt;- netflix_movie %&gt;%
   unnest(country) %&gt;% #unnest listed country
   filter(!is.na(country)) %&gt;%
   pull(country) %&gt;% 
@@ -385,7 +316,7 @@ top_10 &lt;- netflix_movie %&gt;%
 netflix_movie %&gt;%
   select(show_id, country, rating) %&gt;%
   unnest(country) %&gt;%
-  filter(country %in% top_10) %&gt;%
+  filter(country %in% top_10_movie) %&gt;%
   group_by(country, rating) %&gt;%
   summarise(
     n_movie = n()
@@ -395,9 +326,6 @@ netflix_movie %&gt;%
   slice(1:5) %&gt;%
   ungroup() %&gt;%
   mutate(
-    country = str_to_title(country) %&gt;%
-      as_factor() %&gt;%
-      fct_reorder(n_movie, .desc = TRUE),
     rating = str_to_title(rating) %&gt;%
       as_factor() %&gt;%
       fct_reorder2(country, n_movie, .desc = FALSE)
@@ -414,12 +342,12 @@ netflix_movie %&gt;%
                                    size = 10,
                                    hjust = 1)) +
   scale_fill_viridis_c(&quot;# Movies&quot;, direction = -1) +
-  facet_wrap(~ country, scales = &quot;free_y&quot;, ncol = 2)</code></pre>
+  facet_wrap(~ country, scales = &quot;free&quot;, ncol = 2)</code></pre>
 <pre><code>## `summarise()` has grouped output by &#39;country&#39;. You can override using the
 ## `.groups` argument.</code></pre>
-<p><img src="EDA_files/figure-html/unnamed-chunk-7-1.png" width="672" /> #listed in and country both are stored in list how to unnest both?</p>
+<p><img src="EDA_files/figure-html/unnamed-chunk-8-1.png" width="672" /> #listed in and country both are stored in list how to unnest both?</p>
 <pre class="r"><code>#Top 10 countries
-top_10 &lt;- netflix_show %&gt;%
+top_10_show &lt;- netflix_show %&gt;%
   unnest(country) %&gt;% #unnest listed country
   filter(!is.na(country)) %&gt;%
   pull(country) %&gt;% 
@@ -431,7 +359,7 @@ top_10 &lt;- netflix_show %&gt;%
 netflix_movie %&gt;%
   select(show_id, country, rating) %&gt;%
   unnest(country) %&gt;%
-  filter(country %in% top_10) %&gt;%
+  filter(country %in% top_10_show) %&gt;%
   group_by(country, rating) %&gt;%
   summarise(
     n_movie = n()
@@ -443,10 +371,7 @@ netflix_movie %&gt;%
   mutate(
     country = str_to_title(country) %&gt;%
       as_factor() %&gt;%
-      fct_reorder(n_movie, .desc = TRUE),
-    rating = str_to_title(rating) %&gt;%
-      as_factor() %&gt;%
-      fct_reorder2(country, n_movie, .desc = FALSE)
+      fct_reorder(n_movie, .desc = TRUE)
     ) %&gt;%
   ggplot(aes(x = n_movie, y = rating, fill = n_movie)) +
   geom_bar(stat = &quot;identity&quot;, width = 1, colour = &quot;black&quot;) +
@@ -460,10 +385,15 @@ netflix_movie %&gt;%
                                    size = 10,
                                    hjust = 1)) +
   scale_fill_viridis_c(&quot;# TV Shows&quot;, direction = -1) +
-  facet_wrap(~ country, scales = &quot;free_y&quot;, ncol = 2)</code></pre>
+  facet_wrap(~ country, scales = &quot;free&quot;, ncol = 2)</code></pre>
 <pre><code>## `summarise()` has grouped output by &#39;country&#39;. You can override using the
 ## `.groups` argument.</code></pre>
-<p><img src="EDA_files/figure-html/unnamed-chunk-8-1.png" width="672" /> #Taiwan, South Korean and Australia &lt;-&gt; Mexico, China, Germany</p>
+<p><img src="EDA_files/figure-html/unnamed-chunk-9-1.png" width="672" /> #Taiwan, South Korean and Australia &lt;-&gt; Mexico, China, Germany</p>
+<p>#More focus on movies or TV shows in different countries? #Why</p>
+<pre><code>## `summarise()` has grouped output by &#39;country&#39;, &#39;year_added&#39;. You can override
+## using the `.groups` argument.
+## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
+<p><img src="EDA_files/figure-html/unnamed-chunk-10-1.png" width="672" /> #Conclusion: From the plots, we can conclude that.</p>
 
 
 
