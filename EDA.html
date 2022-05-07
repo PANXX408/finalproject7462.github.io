@@ -12,7 +12,7 @@
 <meta name="author" content="Mingming Pan" />
 
 
-<title>EDA</title>
+<title>Exploratory Data Analysis</title>
 
 <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -286,17 +286,64 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">EDA</h1>
+<h1 class="title toc-ignore">Exploratory Data Analysis</h1>
 <h4 class="author">Mingming Pan</h4>
 <h4 class="date">5/3/2022</h4>
 
 </div>
 
 
-<p><em>Before the data analysis, we take a quick glimpse of the dataset. </em> <img src="EDA_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>#n_movie and n_show <img src="EDA_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>#Top 5 ratings in top 10 countries #Movies <img src="EDA_files/figure-html/unnamed-chunk-8-1.png" width="672" /> #listed in and country both are stored in list how to unnest both? <img src="EDA_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p><img src="EDA_files/figure-html/unnamed-chunk-10-1.png" width="672" /> #Conclusion: From the plots, we can conclude that.</p>
+<div id="quick-glimpse-of-the-data-set" class="section level2">
+<h2>Quick Glimpse of the Data Set</h2>
+<p><img src="EDA_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<ul>
+<li>There are 8807 observations and 16 rows in the data set.<br />
+</li>
+<li>There are 6131 movies and 2676 TV shows in the data set.<br />
+</li>
+<li>TV-MA is the most frequent rating of Movies/TV shows available on Netflix.<br />
+</li>
+<li>Friday is the most frequent day of week that Movies/TV shows are added on Netflix.</li>
+</ul>
+</div>
+<div id="number-of-movies-and-tv-shows-available-in-top-20-countries" class="section level2">
+<h2>Number of Movies and TV Shows Available in Top 20 Countries</h2>
+<p><img src="EDA_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<ul>
+<li>The number of Netflix TV shows and movies available in United States is much more than that in other countries. Other major countries have Netflix TV shows and movies available are: the United Kingdom, India, France, Canada, China.<br />
+</li>
+<li>Obviously, there are more movies available than TV shows.<br />
+</li>
+<li>It seems, there are more TV shows available than movies in Japan and South Korea.</li>
+</ul>
+</div>
+<div id="top-5-ratings-of-movies-available-in-top-10-countries" class="section level2">
+<h2>Top 5 Ratings of Movies Available in Top 10 Countries</h2>
+<p><img src="EDA_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<ul>
+<li>Except Japan and India, other top countries have R rating movies avilible in top 5 rating movies on Netflix.<br />
+</li>
+<li>Surprisely, R movies are the most avilaible/popular movies in United Kingdom.</li>
+</ul>
+</div>
+<div id="top-5-ratings-of-tv-shows-available-in-top-10-countries" class="section level2">
+<h2>Top 5 Ratings of TV Shows Available in Top 10 Countries</h2>
+<p><img src="EDA_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<ul>
+<li>The top 10 countries have some differnces from movies and TV shows. From movies to TV shows, Mexico, China and Germany are switched to Australia, South Korea and Taiwan.<br />
+</li>
+<li>R TV shows are not very avilible/popular in Japan, South Korea, India, and Taiwan.<br />
+</li>
+<li>Not surprisely, R TV shows again are the most avilaible TV shows in United Kingdom.</li>
+</ul>
+</div>
+<div id="trend-of-movies-and-tv-shows-added-in-top-10-countries-in-recent-years" class="section level2">
+<h2>Trend of Movies and TV Shows Added in Top 10 Countries in Recent Years</h2>
+<p><img src="EDA_files/figure-html/unnamed-chunk-9-1.png" width="1440" /></p>
+<ul>
+<li>Most top countries have obviouly more movies added than TV shows added in recent years, while this is not true for Japan and South Korea.</li>
+</ul>
+</div>
 
 
 

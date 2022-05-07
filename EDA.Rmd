@@ -1,5 +1,5 @@
 ---
-title: "EDA"
+title: "Exploratory Data Analysis"
 author: "Mingming Pan"
 date: "5/3/2022"
 output:  html_document
@@ -28,11 +28,6 @@ plot_bar(netflix)
 
 
 ```{r, include=FALSE}
-#glimpse the dataset
-head(netflix, n = 20)
-```
-
-```{r, include=FALSE}
 #Data Cleaning
 #Get day, month, year and dayofweek
 #Place mutiple conetents in one cell into a list prepared for further wrangling
@@ -54,14 +49,32 @@ netflix_clean <- netflix %>%
   mutate(rating    = ifelse(str_detect(rating, "min"), NA, rating))
 ```
 
+```{r, include=FALSE}
+#Subset the dataset by movie and TV show
+netflix_movie <- netflix_clean %>%
+  filter(type == "Movie")
 
-*Before the data analysis, we take a quick glimpse of the dataset. *
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-plot_bar(netflix_clean)
+netflix_show <- netflix_clean %>%
+  filter(type == "TV Show")
 ```
 
 
-#n_movie and n_show
+
+
+## Quick Glimpse of the Data Set      
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+plot_bar(netflix_clean, nrow = 2L, ncol = 2L)
+```
+
+- There are `r nrow(netflix_clean)` observations and `r ncol(netflix_clean)` rows in the data set.  
+- There are `r nrow(netflix_movie)` movies and `r nrow(netflix_show)` TV shows in the data set.  
+- TV-MA is the most frequent rating of Movies/TV shows available on Netflix.  
+- Friday is the most frequent day of week that Movies/TV shows are added on Netflix.  
+
+
+
+
+## Number of Movies and TV Shows Available in Top 20 Countries  
 ```{r, message=FALSE, echo=FALSE}
 #top 20 countries
 top_20 <- netflix_clean %>%
@@ -97,25 +110,23 @@ netflix_clean %>%
     x = "Number of Movies/TV Shows",
     title = "Number of Movies/TV Shows in Top 20 Countries"
     ) +
-  theme(legend.position="bottom") +
   scale_fill_viridis_c("Number of Movies/TV Shows", direction = -1, option = "plasma") +
-  theme_minimal()
+  theme_classic() +
+  theme(legend.position = "bottom")
 ```
 
 
-```{r, include=FALSE}
-#Subset the dataset by movie and TV show
-netflix_movie <- netflix_clean %>%
-  filter(type == "Movie")
 
-netflix_show <- netflix_clean %>%
-  filter(type == "TV Show")
-```
+- The number of Netflix TV shows and movies available in United States is much more than that in other countries. Other major countries have Netflix TV shows and movies available are: the United Kingdom, India, France, Canada, China.  
+- Obviously, there are more movies available than TV shows.  
+- It seems, there are more TV shows available than movies in Japan and South Korea.  
 
-#Top 5 ratings in top 10 countries
-#Movies
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-#Top 10 countries
+
+
+
+## Top 5 Ratings of Movies Available in Top 10 Countries      
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=10}
+#Top 10 countries of Movies
 top_10_movie <- netflix_movie %>%
   unnest(country) %>% #unnest listed country
   filter(!is.na(country)) %>%
@@ -148,17 +159,28 @@ netflix_movie %>%
     y = "Rating of Movies",
     x = "Number of Movies",
     title = "Top 5 Movie Ratings in the Top 10 Countries"
-    ) +
-  theme(legend.position = "right",
+    )  +
+  facet_wrap(~ country, scales = "free", ncol = 2) +
+  theme_classic() +
+  theme(legend.position = "bottom",
         axis.text.y = element_text(color = "black",
                                    size = 10,
                                    hjust = 1)) +
-  scale_fill_viridis_c("# Movies", direction = -1) +
-  facet_wrap(~ country, scales = "free", ncol = 2)
+  scale_fill_viridis_c("# Movies", direction = -1)
 ```
-#listed in and country both are stored in list how to unnest both?
+
+
+
+- Except Japan and India, other top countries have R rating movies avilible in top 5 rating movies on Netflix.  
+- Surprisely, R movies are the most avilaible/popular movies in United Kingdom.  
+
+
+
+
+
+## Top 5 Ratings of TV Shows Available in Top 10 Countries    
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=10}
-#Top 10 countries
+#Top 10 countries of TV Show
 top_10_show <- netflix_show %>%
   unnest(country) %>% #unnest listed country
   filter(!is.na(country)) %>%
@@ -192,17 +214,25 @@ netflix_movie %>%
     x = "Number of TV Shows",
     title = "Top 5 TV Shows Ratings in the Top 10 Countries"
     ) +
-  theme(legend.position = "right",
+  scale_fill_viridis_c("# TV Shows", direction = -1) +
+  facet_wrap(~ country, scales = "free", ncol = 2) +
+  theme_classic() +
+  theme(legend.position = "bottom",
         axis.text.y = element_text(color = "black",
                                    size = 10,
-                                   hjust = 1)) +
-  scale_fill_viridis_c("# TV Shows", direction = -1) +
-  facet_wrap(~ country, scales = "free", ncol = 2)
+                                   hjust = 1))
 ```
 
+- The top 10 countries have some differnces from movies and TV shows. From movies to TV shows, Mexico, China and Germany are switched to Australia, South Korea and Taiwan.   
+- R TV shows are not very avilible/popular in Japan, South Korea, India, and Taiwan.    
+- Not surprisely, R TV shows again are the most avilaible TV shows in United Kingdom.   
 
-```{r, warning=FALSE, echo=FALSE, message=FALSE}
-#Top 6 countries
+
+
+
+## Trend of Movies and TV Shows Added in Top 10 Countries in Recent Years
+```{r, warning=FALSE, echo=FALSE, message=FALSE ,fig.width=15}
+#Top 10 countries
 top_10 <- netflix_clean %>%
   unnest(country) %>% #unnest listed country
   filter(!is.na(country)) %>%
@@ -212,7 +242,7 @@ top_10 <- netflix_clean %>%
   slice(1:10) %>% 
   pull(f)
 
-#Trend change in Top 6 countries
+#Trend change in Top 10 countries
 netflix_clean %>%
   select(country, year_added, type) %>%
   unnest(country) %>% 
@@ -236,15 +266,20 @@ netflix_clean %>%
              position = "jitter",
              size     = 1.5, 
              shape    = 16) +
-  facet_wrap(~ country, scale = "free") +
+  facet_wrap(~ country, scale = "free_y", ncol = 5) +
   labs(
-    x = "Year",
+    x = "Year Added",
     y = "Number of Movies/ TV Shows",
-    title = "Trend of Movies and TV Shows Added in Top 6 Countries"
+    title = "Trend of Movies and TV Shows Added in Top 10 Countries in Recent Years"
   ) +
-  theme_classic()
+  theme_classic() +
+  theme(legend.position = "bottom")
 ```
-#Conclusion: From the plots, we can conclude that. 
+
+
+
+ 
+- Most top countries have obviouly more movies added than TV shows added in recent years, while this is not true for Japan and South Korea.  
 
 
 
