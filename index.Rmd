@@ -21,28 +21,30 @@ title: "Netflix Movies and TV Shows from 2008 -2021"
 - What content is available in different countries. Are there any differences between movies and TV shows?   
 - Does Netflix have more focus on TV Shows than movies in recent years in different countries and regions?  
 
-To answer our question of interest, we obtain a data set from [Kaggle](https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download) which consists of listings of all the movies and TV shows available on Netflix from 2008 to 2021. The data set includes details about available movies and TV shows, such as - available country, cast, directors, ratings, release year, categories, etc.   
+To answer our question of interest, we obtain a data set from [Kaggle](https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download) which consists of listings of all the movies and TV shows available on Netflix from 2008 to 2021. The data set includes details about available movies and TV shows, such as - available country, cast, directors, ratings, release year, categories, etc. For more details about data sets used, please check our data tab.   
 
   
-
 ### **Analysis Plan**
+- To understand the data set better, we first obtained basic information of the data set, such as number of movies and TV shows available and number of countries which can access Netflix.        
+- To understand What content is available in different countries, we visualized **Number of Movies/TV Shows in Top 20 Countries** and **Top 5 ratings of movies/TV shows in Top 10 Counties** with side-by-side bar plots.  
+- To visualize the number of movies/TV shows available globally, we created two interactive world maps showing the total number of TV shows and movies added in each country from 2008 to 2021.  
+- To understand whether Netflix have more focus on TV Shows than movies in recent years in different countries, we plot number of movies and TV shows added in top 6 countries from 2008 to 2021.  
 
-To analysis ....
-  
 
 ### **Main Findings**
-- Main Result 1   
-- Main Result 2   
+- As of mid-2021, there are 6131 Movies and 2176 TV shows available on Netflix.  
+- The United States is the main force in the production of Netflix TV shows and movies, and the United Kingdom, India, France, Canada, China also have a lot of output.  
+- Among top 10 countries, most countries have obviously more movies added than TV shows added. However, this is not truw in Japan and Korea.  
+- The number of TV shows and movies both have a trend of first increasing and then decreasing, the peak is generally concentrated in 2016 to 2018. Among them, the number of movies generally exceeds that of TV shows. North America produces the most TV shows and movies, followed by Asia and Europe, followed by South America and Africa, and Oceania has the least number.   
 
 
 ### **Possible Future Analysis**
 
-- Main Result 1   
-- Main Result 2   
+- Are there any trends of changes of duration of Movies/TV shows in recent years?  
+- Are there any trends of changes of categories of TV shows/movies available in recent years?  
+- Who are the top 10 popular actors/directors Worldwide? In different regions?   
 
   
-   
-   
 ### **Reference**   
 Wikipedia. 2022. “Evolutionary History of Life.” Last modified May 6, 2022. https://en.wikipedia.org/wiki/Netflix.   
   
