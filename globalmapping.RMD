@@ -61,7 +61,7 @@ netflix1 <- netflix_bak %>%
   pivot_longer(cols = starts_with("country"), values_to = "country") %>%
   filter(!is.na(country)) 
 netflix1$country<-gsub(",", "",netflix1$country) #delete the comma remained
-netflix1$country <- ifelse(netflix1$country == "Hong Kong", "China",netflix1$country)
+netflix1$country <- ifelse(netflix1$country == "Hong Kong", "China", netflix1$country)
 netflix1$country <- ifelse(netflix1$country == "South Korea", "Republic of Korea", netflix1$country)
 netflix1$country <- ifelse(netflix1$country == "West Germany", "Germany", netflix1$country)
 netflix1$country <- ifelse(netflix1$country == "East Germany", "Germany", netflix1$country)
@@ -72,11 +72,11 @@ netflix_count <- netflix1  %>%
   filter(country!="") %>%
   group_by(country,type) %>%
   summarise(n=n()) %>%
-  pivot_wider(names_from = type,values_from = n)
+  pivot_wider(names_from = type, values_from = n)
 data(world)
 map_plotly.df <- world %>%
   left_join(netflix_count, by= c("name_long"="country")) %>%
-  mutate(movie_label = str_c(name_long,
+  mutate(movie_label = str_c(name_long, #set the text label
                   "\n  Movie: ",
                   Movie),
          tv_label = str_c(name_long,
@@ -87,13 +87,13 @@ map_plotly.df <- world %>%
 Row {data-height=400}
 -----------------------------------------------------------------------
 
-### Numbers of Movie in the world
+### Number of Movies in the world
 
 ```{r}
 #Generate the ggplot
 #plot for movie
 movie.gg <- ggplot() +
-  geom_sf(data = map_plotly.df, aes(fill = log(Movie), text=movie_label)) +
+  geom_sf(data = map_plotly.df, aes(fill = log(Movie), text=movie_label)) + #the number do not decreas evenly,I set the log as scale
   labs(title = "Number of Movies in the world") +
   scale_fill_viridis_c("log Movie", option="plasma", direction = -1, alpha = 0.8) +
   ggthemes::theme_map()
@@ -105,12 +105,12 @@ movie.ggplotly
 
 -----------------------------------------------------------------------
 
-### Numbers of TV Show in the world
+### Number of TV Shows in the world
 
 ```{r}
 #plot for TV Show
-tv.gg <-ggplot() + 
-  geom_sf(data = map_plotly.df, aes(fill = log(`TV Show`), text=tv_label)) +
+tv.gg <- ggplot() + 
+  geom_sf(data = map_plotly.df, aes(fill = log(`TV Show`), text=tv_label)) + 
   labs(title = "Number of TV Shows in the world") +
   scale_fill_viridis_c("log TV Show", option="plasma", direction = -1, alpha = 0.8) +
   ggthemes::theme_map()
@@ -121,23 +121,30 @@ tv.ggplotly
 
 Row {data-height=600}
 -----------------------------------------------------------------------
-### Numbers of TV Shows and movies in different continents
+### Number of TV Shows and movies in different continents
 ```{r}
-continent.gg <- netflix1 %>%
+try<-netflix1 %>%
   filter(release_year %in% 2021:2011) %>%
   left_join(world %>% select(name_long,continent),
             by= c("country"="name_long"))  %>%
   group_by(type,release_year,continent)%>%
-  summarise(n=n())%>%
+  summarise(n=n()) %>%
   filter(!is.na(continent)) %>%
-  mutate(text_label = str_c(n, " ",type," produced in ",continent," in ",release_year)) %>%
-  ggplot(aes(x=release_year,y=n,fill=type, text = text_label)) +
-           geom_bar(stat = "identity",position = "dodge") +
+  mutate(text_label = str_c(n, " ",type," produced in ",continent," in ",release_year)) 
+
+try$continent <- try$continent %>% #reorder the levels of continent by the total number of movie numbers
+  as.factor() %>%
+  fct_reorder(try$n,sum,.desc = TRUE) 
+
+continent.gg <- try %>%
+  ggplot(aes(x=release_year, y=n, fill=type, text = text_label)) +
+           geom_bar(stat = "identity", position = "dodge") +
   facet_wrap(~continent, scales = "free")+
   labs(title = "Number of TV Shows and Movies in different continents",
        subtitle = "In recent ten years",
     x     = "Release year",
-    y     = "Number")+theme_light()
+    y     = "Number") +
+  theme_light()
 
 #ggplotly() + tooltip to control label
 continent.ggplotly <-ggplotly(continent.gg, tooltip = "text") #tooltip controls text hover/labelx
