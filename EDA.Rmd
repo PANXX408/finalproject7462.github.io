@@ -288,7 +288,7 @@ trend_plotly
 
 
  
-- Most top countries have obviouly more movies added than TV shows added in recent years, while this is not true for Japan and South Korea.  
+- Most top countries have obviously more movies added than TV shows added in recent years, while this is not true for Japan and South Korea.  
 
 
 

@@ -9,7 +9,7 @@ title: "Netflix Movies and TV Shows from 2008 -2021"
 
 ### **Introduction**
 
-  *Netflix, Inc.* is an American company launched on August 29, 1997 and currently is known as one of the most popular media and video streaming platforms. Netflix initially was a company that both sold and rent DVD by mail. Until 2017, Netflix launched a streaming media service, introducing video on demand via the Internet. At the beginning of 2017, they only had 1,000 movies available  for streaming, while 70,000 movies available on DVD.   
+  *Netflix, Inc.* is an American company launched on August 29, 1997 and currently is known as one of the most popular media and video streaming platforms. Netflix initially was a company that both sold and rent DVD by mail. Until 2007, Netflix launched a streaming media service, introducing video on demand via the Internet. At the beginning of 2007, they only had 1,000 movies available  for streaming, while 70,000 movies available on DVD.   
 
    As of March 31, 2022, Netflix had over 221.6 million subscribers worldwide: including 74.6 million in the United States and Canada, 74.0 million in Europe, the Middle East and Africa, 39.9 million in Latin America and 32.7 million in Asia-Pacific. It is available worldwide aside from Mainland China, Syria, North Korea, Russia, and Crimea. As of mid-2021, Netflix has over 8000 movies or TV shows available on their platform.    
    The spread and the development trend of Netflix are incredible. To understand the trend of development, we start our exploration. To understand the development, we focus on two aspects of movies and TV shows available on Netflix, contents available in different countries and differences between movies and TV shows.     
@@ -28,15 +28,17 @@ To answer our question of interest, we obtain a data set from [Kaggle](https://w
 - To understand the data set better, we first obtained basic information of the data set, such as number of movies and TV shows available and number of countries which can access Netflix.        
 - To understand What content is available in different countries, we visualized **Number of Movies/TV Shows in Top 20 Countries** and **Top 5 ratings of movies/TV shows in Top 10 Counties** with side-by-side bar plots.  
 - To visualize the number of movies/TV shows available globally, we created two interactive world maps showing the total number of TV shows and movies added in each country from 2008 to 2021.  
-- To understand whether Netflix have more focus on TV Shows than movies in recent years in different countries, we plot number of movies and TV shows added in top 6 countries from 2008 to 2021.  
+- To understand whether Netflix have more focus on TV Shows than movies in recent years in different countries, we plot number of movies and TV shows added in top 6 countries from 2008 to 2021.   
 
 
 ### **Main Findings**
-- As of mid-2021, there are `r nrow(netflix_clean)` observations and `r ncol(netflix_clean)` rows in the data set.    
-- The number of Netflix TV shows and movies available in United States is much more than that in other countries. Other major countries have Netflix TV shows and movies avilible are: the United Kingdom, India, France, Canada, China.    
-- R TV shows are not very available/popular in Japan, South Korea, India, and Taiwan, while both R movies and TV shows are the most avilible ones in United Kingdom.   
+- There are 8807 observations and 12 columns in the data set.    
+- There are 6131 movies and 2676 TV shows on Netflix.   
+- The number of Netflix TV shows and movies available in United States is much more than that in other countries. Other major countries have Netflix TV shows and movies available are: the United Kingdom, India, France, Canada, China.    
+- R TV shows are not very available/popular in Japan, South Korea, India, and Taiwan, while both R movies and TV shows are the most available ones in United Kingdom.   
 - Among top 10 countries, most countries have obviously more movies added than TV shows added. However, this is not true in Japan and South Korea.  
 - The number of TV shows and movies both have a trend of first increasing and then decreasing, the peak is generally concentrated in 2016 to 2018. Among them, the number of movies generally exceeds that of TV shows. North America produces the most TV shows and movies, followed by Asia and Europe, followed by South America and Africa, and Oceania has the least number.   
+- The first increasing and decreasing trend globally could be related to COVID-19 pandemic.  
 
 
 ### **Possible Future Analysis**
