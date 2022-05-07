@@ -13,14 +13,12 @@ library(spData)
 library(sf)
 library(tidyverse)
 library(lubridate)
-library(gt)
 library(paletteer)
 library(ggridges)
 library(plotly)
 library(gtExtras)
 library(ggmap)
 library(tidycensus)
-library(leaflet)
 library(osmdata)
 library(tigris)
 library(ggsflabel)
@@ -42,10 +40,6 @@ knitr::opts_chunk$set(
   echo  = FALSE,
   warning = FALSE
 )
-
-#My Colours (from viridis)
-my_purple <- "#440154FF"
-my_yellow <- "#FDE725FF"
 
 #Set Theme for ggplot2
 theme_set(theme_bw() + theme(plot.title = element_text(hjust = 0.5), legend.position = "bottom"))
@@ -100,11 +94,11 @@ Row {data-height=400}
 #plot for movie
 movie.gg <- ggplot() +
   geom_sf(data = map_plotly.df, aes(fill = log(Movie), text=movie_label)) +
-  labs(title = "Numbers of Movie in the world") +
-  scale_fill_viridis_c("log Movie", option="plasma",direction = -1, alpha = 0.8) +
+  labs(title = "Number of Movies in the world") +
+  scale_fill_viridis_c("log Movie", option="plasma", direction = -1, alpha = 0.8) +
   ggthemes::theme_map()
 
-movie.ggplotly<-ggplotly(movie.gg, tooltip = "text", height =500 ,width = 550 ) %>%
+movie.ggplotly<-ggplotly(movie.gg, tooltip = "text", height =500,width = 550) %>%
   style(hoveron = "fills")
 movie.ggplotly
 ```
@@ -117,8 +111,8 @@ movie.ggplotly
 #plot for TV Show
 tv.gg <-ggplot() + 
   geom_sf(data = map_plotly.df, aes(fill = log(`TV Show`), text=tv_label)) +
-  labs(title = "Numbers of TV Show in the world") +
-  scale_fill_viridis_c("log TV Show", option="plasma", alpha = 0.8) +
+  labs(title = "Number of TV Shows in the world") +
+  scale_fill_viridis_c("log TV Show", option="plasma", direction = -1, alpha = 0.8) +
   ggthemes::theme_map()
 tv.ggplotly <-ggplotly(tv.gg, tooltip = "text", height =500 ,width =550) %>%
   style(hoveron = "fills")
@@ -140,7 +134,7 @@ continent.gg <- netflix1 %>%
   ggplot(aes(x=release_year,y=n,fill=type, text = text_label)) +
            geom_bar(stat = "identity",position = "dodge") +
   facet_wrap(~continent, scales = "free")+
-  labs(title = "Numbers of TV Shows and Movies in different continents",
+  labs(title = "Number of TV Shows and Movies in different continents",
        subtitle = "In recent ten years",
     x     = "Release year",
     y     = "Number")+theme_light()
