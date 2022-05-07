@@ -157,7 +157,7 @@ netflix_movie %>%
   facet_wrap(~ country, scales = "free", ncol = 2)
 ```
 #listed in and country both are stored in list how to unnest both?
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=10}
 #Top 10 countries
 top_10_show <- netflix_show %>%
   unnest(country) %>% #unnest listed country
@@ -199,12 +199,9 @@ netflix_movie %>%
   scale_fill_viridis_c("# TV Shows", direction = -1) +
   facet_wrap(~ country, scales = "free", ncol = 2)
 ```
-#Taiwan, South Korean and Australia <-> Mexico, China, Germany
 
 
-#More focus on movies or TV shows in different countries?
-#Why 
-```{r, warning=FALSE, echo=FALSE}
+```{r, warning=FALSE, echo=FALSE, message=FALSE}
 #Top 6 countries
 top_10 <- netflix_clean %>%
   unnest(country) %>% #unnest listed country

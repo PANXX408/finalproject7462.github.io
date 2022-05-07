@@ -9,10 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Mingming Pan" />
 
 
-<title>datapage</title>
+<title>DATA</title>
 
 <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -286,25 +285,20 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">datapage</h1>
-<h4 class="author">Mingming Pan</h4>
-<h4 class="date">5/3/2022</h4>
+<h1 class="title toc-ignore">DATA</h1>
 
 </div>
 
 
-<font size="4">
-<center>
-About this Dataset: Netflix is one of the most popular media and video streaming platforms. They have over 8000 movies or tv shows available on their platform, as of mid-2021, they have over 200M Subscribers globally. This tabular dataset consists of listings of all the movies and tv shows available on Netflix, along with details such as - cast, directors, ratings, release year, duration, etc.
-</center>
-<p></font></p>
-<p><a href="https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download">Data Kaggle Page</a></p>
-<ol style="list-style-type: decimal">
-<li>describes, in detail, each data source in the project,</li>
-<li>how the data was acquired and/or merged together if applicable,</li>
-<li>provides links to each data source with references/documentation if necessary</li>
-<li>links to or provides the Rscript necessary to acquire the data from an API (and date/time it was acquired)</li>
-</ol>
+<div id="data-describing-netflix-movies-and-tv-shows" class="section level4">
+<h4>Data Describing Netflix Movies and TV Shows</h4>
+<p>To explore characteristics of Movies and TV shows available on Netflix, we find a open source data set on <a href="https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download">Kaggle</a>. This tabular data set concludes listings of all the movies and TV shows available on Netflix and corresponding details such as - available country, cast, directors, ratings, release year, date added, etc.<br />
+This data set has 8807 unique rows and 12 columns, but it is not presented in a tidy form. One single cell contains several elements. For example, one movie could have several directors and lots of casts. To make the data ready for further analysis, we store elements in a list that we can unnest the variable we interested in as we need. Data wrangling was performed as needed.</p>
+</div>
+<div id="world-map-data" class="section level4">
+<h4>World Map Data</h4>
+<p>To visualize the information, such as the number of TV Shows and Movies in different countries, in global map, we obtained the geographic information from the data set “world” by accessing the R package “sf”. This data set contains world map data from <a href="https://www.naturalearthdata.com/">Natural Earth</a> with a few variables from <a href="https://data.worldbank.org/">the World Bank</a>, the names of countries and continents. We used the function <em>left_join</em> to merge the <em>Netflix data set</em> with the “World data set” by country name.</p>
+</div>
 
 
 
