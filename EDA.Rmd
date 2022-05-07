@@ -87,7 +87,7 @@ top_20 <- netflix_clean %>%
   pull(f)
 
 #Number of Movies and TV show in Top 20 Countries
-netflix_clean %>%
+netflix_plot <- netflix_clean %>%
   unnest(country) %>%
   filter(!is.na(country),
          country %in% top_20) %>%
@@ -113,6 +113,9 @@ netflix_clean %>%
   scale_fill_viridis_c("Number of Movies/TV Shows", direction = -1, option = "plasma") +
   theme_classic() +
   theme(legend.position = "bottom")
+
+netflix_ggplotly <- ggplotly(netflix_plot)
+netflix_ggplotly
 ```
 
 
@@ -166,7 +169,9 @@ netflix_movie %>%
         axis.text.y = element_text(color = "black",
                                    size = 10,
                                    hjust = 1)) +
-  scale_fill_viridis_c("# Movies", direction = -1)
+  scale_fill_viridis_c("# Movies", direction = -1, option = "plasma")
+
+
 ```
 
 
@@ -214,7 +219,7 @@ netflix_movie %>%
     x = "Number of TV Shows",
     title = "Top 5 TV Shows Ratings in the Top 10 Countries"
     ) +
-  scale_fill_viridis_c("# TV Shows", direction = -1) +
+  scale_fill_viridis_c("# TV Shows", direction = -1, option = "plasma") +
   facet_wrap(~ country, scales = "free", ncol = 2) +
   theme_classic() +
   theme(legend.position = "bottom",
@@ -243,7 +248,7 @@ top_10 <- netflix_clean %>%
   pull(f)
 
 #Trend change in Top 10 countries
-netflix_clean %>%
+trend_plot <- netflix_clean %>%
   select(country, year_added, type) %>%
   unnest(country) %>% 
   filter(
@@ -266,7 +271,7 @@ netflix_clean %>%
              position = "jitter",
              size     = 1.5, 
              shape    = 16) +
-  facet_wrap(~ country, scale = "free_y", ncol = 5) +
+  facet_wrap(~ country, scale = "free_y", ncol = 2) +
   labs(
     x = "Year Added",
     y = "Number of Movies/ TV Shows",
@@ -274,6 +279,10 @@ netflix_clean %>%
   ) +
   theme_classic() +
   theme(legend.position = "bottom")
+
+
+trend_plotly <- ggplotly(trend_plot)
+trend_plotly
 ```
 
 
