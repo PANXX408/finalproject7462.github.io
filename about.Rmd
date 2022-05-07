@@ -2,11 +2,9 @@
 title: "About"
 ---
 
-<font size="4"> 
-<center>
-*This is an academic project of PubH7462 from University of Minnesota, School of Public Health. Group members are Mingming Pan and Xiao Ma.*  
-</center>
-</font>
+
+*This is the final project of PubH7462 at University of Minnesota, School of Public Health. Group members are Mingming Pan and Xiao Ma.*  
+
 
 <font size="4"> 
 <center>

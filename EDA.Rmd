@@ -6,6 +6,7 @@ output:  html_document
 ---
 
 ```{r, include=FALSE, message=FALSE}
+#Set up chunk
 library(tidyverse)
 library(DataExplorer)
 library(lubridate)
@@ -16,9 +17,6 @@ library(ggplot2)
 library(plotly)
 ```
 
-
-#Understanding what content is available in different countries. Are there any differences between movies and TV shows?
-#Does Netflix have more focus on TV Shows than movies in recent years in different countries and regions? 
 ```{r, include=FALSE}
 #read data
 netflix <- read_csv("./data/netflix_titles.csv", na = "")
@@ -27,6 +25,7 @@ netflix <- read_csv("./data/netflix_titles.csv", na = "")
 plot_missing(netflix)
 plot_bar(netflix)
 ```
+
 
 ```{r, include=FALSE}
 #glimpse the dataset
@@ -56,13 +55,13 @@ netflix_clean <- netflix %>%
 ```
 
 
+*Before the data analysis, we take a quick glimpse of the dataset. *
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 plot_bar(netflix_clean)
 ```
 
 
 #n_movie and n_show
-#Why arrange is not working?
 ```{r, message=FALSE, echo=FALSE}
 #top 20 countries
 top_20 <- netflix_clean %>%
@@ -104,7 +103,7 @@ netflix_clean %>%
 ```
 
 
-```{r}
+```{r, include=FALSE}
 #Subset the dataset by movie and TV show
 netflix_movie <- netflix_clean %>%
   filter(type == "Movie")
@@ -115,7 +114,7 @@ netflix_show <- netflix_clean %>%
 
 #Top 5 ratings in top 10 countries
 #Movies
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 #Top 10 countries
 top_10_movie <- netflix_movie %>%
   unnest(country) %>% #unnest listed country
@@ -158,7 +157,7 @@ netflix_movie %>%
   facet_wrap(~ country, scales = "free", ncol = 2)
 ```
 #listed in and country both are stored in list how to unnest both?
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=10}
 #Top 10 countries
 top_10_show <- netflix_show %>%
   unnest(country) %>% #unnest listed country
@@ -200,12 +199,9 @@ netflix_movie %>%
   scale_fill_viridis_c("# TV Shows", direction = -1) +
   facet_wrap(~ country, scales = "free", ncol = 2)
 ```
-#Taiwan, South Korean and Australia <-> Mexico, China, Germany
 
 
-#More focus on movies or TV shows in different countries?
-#Why 
-```{r, warning=FALSE, echo=FALSE}
+```{r, warning=FALSE, echo=FALSE, message=FALSE}
 #Top 6 countries
 top_10 <- netflix_clean %>%
   unnest(country) %>% #unnest listed country

@@ -1,21 +1,16 @@
 ---
-title: "datapage"
-author: "Mingming Pan"
-date: "5/3/2022"
+title: "DATA"
 output: html_document
 ---
 
-<font size="4"> 
-<center>
-About this Dataset: Netflix is one of the most popular media and video streaming platforms. They have over 8000 movies or tv shows available on their platform, as of mid-2021, they have over 200M Subscribers globally. This tabular dataset consists of listings of all the movies and tv shows available on Netflix, along with details such as - cast, directors, ratings, release year, duration, etc.  
-</center>
-</font>
-
-[Data Kaggle Page](https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download)
+#### Data Describing Netflix Movies and TV Shows  
+To explore characteristics of Movies and TV shows available on Netflix, we find a open source data set on [Kaggle](https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download). This tabular data set concludes listings of all the movies and TV shows available on Netflix and  corresponding details such as - available country, cast, directors, ratings, release year, date added, etc.  
+This data set has 8807 unique rows and 12 columns, but it is not presented in a tidy form. One single cell contains several elements. For example, one movie could have several directors and lots of casts. To make the data ready for further analysis, we store elements in a list that we can unnest the variable we interested in as we need. Data wrangling was performed as needed.     
 
 
 
-(1) describes, in detail, each data source in the project, 
-(2) how the data was acquired and/or merged together if applicable, 
-(3) provides links to each data source with references/documentation if necessary
-(4) links to or provides the Rscript necessary to acquire the data from an API (and date/time it was acquired)
+#### World Map Data  
+To visualize the information, such as the number of TV Shows and Movies in different countries, in global map, we obtained the geographic information from the data set **world** by accessing the R package **sf**.  
+This data set contains world map data from [Natural Earth](https://www.naturalearthdata.com/) with a few variables from [the World Bank](https://data.worldbank.org/), the names of countries and continents. We used the function **left_join** to merge the **Netflix data set** with the **World data set** by country name.   
+
+

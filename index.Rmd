@@ -2,31 +2,54 @@
 title: "Netflix Movies and TV Shows from 2008 -2021"
 ---
 
-<div style= "float : left; position : relative; top: 0px; width : 450px; height : 360px; padding-right: 24px; margin-bottom : 0px">
-![Netflix](./Netflix-logo-red-black-png.png)
+<div style= "float : left; position : relative; top: 0px; width : 450px; height : 270px; padding-right: 24px; margin-bottom : 0px">
+![](./Netflix-logo-red-black-png.png)
 
 </div>
 
-<font size = "4"> 
-**Introduction**
-*Netflix, Inc. is an American company launched on August 29, 1997 and currently is known as one of the most popular media and video streaming platforms. Netflix initially was a company that both sold and rent DVD by mail. Until 2017, Netflix launched a streaming media service, introducing video on demand via the Internet. At the beginning of 2017, they only had 1,000 movies available  for streaming, while 70,000 movies available on DVD.*
-*As of March 31, 2022, Netflix had over 221.6 million subscribers worldwide: including 74.6 million in the United States and Canada, 74.0 million in Europe, the Middle East and Africa, 39.9 million in Latin America and 32.7 million in Asia-Pacific. It is available worldwide aside from Mainland China, Syria, North Korea, Russia, and Crimea.(ref 1) As of mid-2021, Netflix has over 8000 movies or TV shows available on their platform. *
-*The spread and the development trend of Netflix is incredible. To understand the trend of development, we start our exploration. To understand the development, we focus on two aspects of movies and TV shows available on Netflix, contents available in different countries and differences between movies and TV shows.*
-*Our question of interest are: 1.what content is available in different countries. Are there any differences between movies and TV shows? 2.Does Netflix have more focus on TV Shows than movies in recent years in different countries and regions? *
-*how the data obtained can be used to answer these questions. This tabular dataset consists of listings of all the movies and tv shows available on Netflix, along with details such as - cast, directors, ratings, release year, duration, etc.*
-</font>  
+### **Introduction**
+
+  *Netflix, Inc.* is an American company launched on August 29, 1997 and currently is known as one of the most popular media and video streaming platforms. Netflix initially was a company that both sold and rent DVD by mail. Until 2017, Netflix launched a streaming media service, introducing video on demand via the Internet. At the beginning of 2017, they only had 1,000 movies available  for streaming, while 70,000 movies available on DVD.   
+
+   As of March 31, 2022, Netflix had over 221.6 million subscribers worldwide: including 74.6 million in the United States and Canada, 74.0 million in Europe, the Middle East and Africa, 39.9 million in Latin America and 32.7 million in Asia-Pacific. It is available worldwide aside from Mainland China, Syria, North Korea, Russia, and Crimea. As of mid-2021, Netflix has over 8000 movies or TV shows available on their platform.    
+   The spread and the development trend of Netflix are incredible. To understand the trend of development, we start our exploration. To understand the development, we focus on two aspects of movies and TV shows available on Netflix, contents available in different countries and differences between movies and TV shows.     
+
+    
+    
+### **Question of Interest**   
+
+- What content is available in different countries. Are there any differences between movies and TV shows?   
+- Does Netflix have more focus on TV Shows than movies in recent years in different countries and regions?  
+
+To answer our question of interest, we obtain a data set from [Kaggle](https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download) which consists of listings of all the movies and TV shows available on Netflix from 2008 to 2021. The data set includes details about available movies and TV shows, such as - available country, cast, directors, ratings, release year, categories, etc.   
+
+  
+
+### **Analysis Plan**
+
+To analysis ....
+  
+
+### **Main Findings**
+- Main Result 1   
+- Main Result 2   
 
 
-<font size = "4">
-*Analysis plan*  
-</font>  
+### **Possible Future Analysis**
+
+- Main Result 1   
+- Main Result 2   
+
+  
+   
+   
+### **Reference**   
+Wikipedia. 2022. “Evolutionary History of Life.” Last modified May 6, 2022. https://en.wikipedia.org/wiki/Netflix.   
+  
+  
+  
+### **Contact Us**
+[Contact Mingming Pan](mailto:panxx408@umn.edu)   
+[Contact Xiao Ma](mailto:ma000332@umn.edu)  
 
 
-<font size = "4">
-*Results*  
-</font>
-
->"Reference" - Wikipedia. 2022. “Evolutionary History of Life.” Last modified May 6, 2022. https://en.wikipedia.org/wiki/Netflix.
-
-[Contact Us](mailto:panxx408@umn.edu)
-[Contact Us](mailto:ma000332@umn.edu)
