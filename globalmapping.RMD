@@ -104,7 +104,7 @@ movie.gg <- ggplot() +
   scale_fill_viridis_c("log Movie", option="plasma",direction = -1, alpha = 0.8) +
   ggthemes::theme_map()
 
-movie.ggplotly<-ggplotly(movie.gg, tooltip = "text", height =500 ,width = 500 ) %>%
+movie.ggplotly<-ggplotly(movie.gg, tooltip = "text", height =500 ,width = 550 ) %>%
   style(hoveron = "fills")
 movie.ggplotly
 ```
@@ -120,7 +120,7 @@ tv.gg <-ggplot() +
   labs(title = "Numbers of TV Show in the world") +
   scale_fill_viridis_c("log TV Show", option="plasma", alpha = 0.8) +
   ggthemes::theme_map()
-tv.ggplotly <-ggplotly(tv.gg, tooltip = "text", height =500 ,width =500) %>%
+tv.ggplotly <-ggplotly(tv.gg, tooltip = "text", height =500 ,width =550) %>%
   style(hoveron = "fills")
 tv.ggplotly
 ```
