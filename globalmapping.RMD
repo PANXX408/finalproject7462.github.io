@@ -129,14 +129,18 @@ Row {data-height=600}
 -----------------------------------------------------------------------
 ### Numbers of TV Shows and movies in different continents
 ```{r}
-continent.gg <- netflix1 %>%
+try<- netflix1 %>%
   filter(release_year %in% 2021:2011) %>%
   left_join(world %>% select(name_long,continent),
             by= c("country"="name_long"))  %>%
   group_by(type,release_year,continent)%>%
   summarise(n=n())%>%
   filter(!is.na(continent)) %>%
-  mutate(text_label = str_c(n, " ",type," produced in ",continent," in ",release_year)) %>%
+  mutate(text_label = str_c(n, " ",type," produced in ",continent," in ",release_year)) 
+try$continent<-as.factor(try$continent)
+try$continent<-fct_reorder(try$continent, try$n, sum, .desc = TRUE)
+levels(try$continent)
+continent.gg <- try %>%
   ggplot(aes(x=release_year,y=n,fill=type, text = text_label)) +
            geom_bar(stat = "identity",position = "dodge") +
   facet_wrap(~continent, scales = "free")+
