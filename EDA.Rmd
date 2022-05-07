@@ -236,7 +236,7 @@ netflix_movie %>%
 
 
 ## Trend of Movies and TV Shows Added in Top 10 Countries in Recent Years
-```{r, warning=FALSE, echo=FALSE, message=FALSE ,fig.width=15}
+```{r, warning=FALSE, echo=FALSE, message=FALSE ,fig.width=10, fig.height=10}
 #Top 10 countries
 top_10 <- netflix_clean %>%
   unnest(country) %>% #unnest listed country
